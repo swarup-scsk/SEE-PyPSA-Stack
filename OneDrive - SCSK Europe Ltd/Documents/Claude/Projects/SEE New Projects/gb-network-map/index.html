@@ -6,7 +6,7 @@
 <title>GB Stack Model — Network Explorer (Pass 1)</title>
 <link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet"/>
 <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
-<script src="https://unpkg.com/deck.gl@9.0.36/dist.min.js"></script>
+<script src="https://unpkg.com/deck.gl@^9.1.0/dist.min.js"></script>
 <script src="https://unpkg.com/echarts@5.5.1/dist/echarts.min.js"></script>
 <style>
   :root{--navy:#1F3355;--ink:#222;--line:#dfe4ea;}
@@ -53,6 +53,13 @@
 <div id="priceCard" class="card"><p class="t">GB day-ahead price (EUR/MWh) &amp; demand (MW) — full forecast window</p><div id="price"></div></div>
 <div id="hint" class="card">Click a <b>generator</b> (dot) or an <b>interconnector</b> (arc) to drill in.</div>
 <script>
+window.onerror=function(msg){var m=document.getElementById('metaline'); if(m){m.textContent='⚠ '+msg;} return false;};
+window.addEventListener('DOMContentLoaded',function(){
+  if(typeof deck==='undefined'||typeof maplibregl==='undefined'||typeof echarts==='undefined'){
+    document.getElementById('metaline').textContent='⚠ A map/chart library failed to load (check network/CDN).';
+  }
+});
+
 let DATA=null, priceChart=null, miniChart=null;
 const {DeckGL, MapboxOverlay, ScatterplotLayer, ArcLayer}=deck;
 
